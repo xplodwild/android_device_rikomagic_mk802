@@ -1,0 +1,80 @@
+import init.sun4i.usb.rc
+
+on init
+    start watchdogd
+
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
+    # create directory for mounting usb drives
+    mkdir /storage/usbdisk 0666 system system
+    symlink /storage/usbdisk /mnt/usbdisk
+    symlink /mnt/usbdisk /usbdisk
+
+on post-fs-data
+    mkdir /data/media 0770 media_rw media_rw
+
+    setprop vold.post_fs_data_done 1
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+on boot
+        
+#insmod key & tp driver
+        #insmod /system/vendor/modules/goodix_touch_811.ko
+        insmod /system/vendor/modules/goodix_touch_811.ko
+        #insmod /system/vendor/modules/ft5x_ts.ko
+        
+# touch key
+    insmod /system/vendor/modules/hv2605.ko
+
+# insmod mali driver  
+        insmod /system/vendor/modules/ump.ko
+        insmod /system/vendor/modules/mali.ko
+        
+#insmod gsensor driver
+        insmod /system/vendor/modules/mma7660.ko
+    
+# insmod vibrator
+    insmod /system/vendor/modules/sun4i-vibrator.ko
+    chmod 777 /sys/class/timed_output/sun4i-vibrator/enable
+
+#csi module
+        insmod /system/vendor/modules/videobuf-core.ko
+        insmod /system/vendor/modules/videobuf-dma-contig.ko
+        insmod /system/vendor/modules/gc0308.ko
+        #insmod /system/vendor/modules/gt2005.ko
+        #insmod /system/vendor/modules/sun4i_csi1.ko
+        insmod /system/vendor/modules/sun4i_csi0.ko
+
+#network module
+        insmod /system/vendor/modules/usbnet.ko
+        insmod /system/vendor/modules/asix.ko
+        insmod /system/vendor/modules/qf9700.ko
+        insmod /system/vendor/modules/mcs7830.ko
+        insmod /system/vendor/modules/rtl8150.ko
+#       insmod /system/vendor/modules/8192cu_mp.ko
+
+# wifi related service
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 \
+        -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
+        class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    group system wifi inet
+    disabled
+    oneshot
+
+

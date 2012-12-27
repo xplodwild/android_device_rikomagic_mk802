@@ -1,0 +1,7 @@
+[
+    {
+      "repository": "android_kernel_rikomagic_mk802",
+      "target_path": "kernel/rikomagic/mk802",
+      "branch": "cm-10.1"
+    }
+]
