@@ -21,7 +21,6 @@ LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES := \
-    $(LOCAL_KERNEL):kernel \
     device/rikomagic/mk802/init.sun4i.rc:root/init.sun4i.rc \
     device/rikomagic/mk802/init.sun4i.usb.rc:root/init.sun4i.usb.rc \
     device/rikomagic/mk802/init.recovery.sun4i.rc:root/init.recovery.sun4i.rc \

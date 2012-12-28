@@ -1,3 +1,4 @@
+
 #
 # Copyright (C) 2011 The Android Open-Source Project
 #
@@ -82,9 +83,7 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-TARGET_RECOVERY_UI_LIB := librecovery_ui_mk802
-TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_mk802
-TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/mk802
-
+TARGET_RELEASETOOLS_EXTENSIONS := device/rikomagic/mk802
+TARGET_OTA_ASSERT_DEVICE := mk802,crane-hractp,a10,A10
 
 #BOARD_HAS_NO_SELECT_BUTTON := true
