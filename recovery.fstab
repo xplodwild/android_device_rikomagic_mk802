@@ -1,10 +1,11 @@
 # mount point	fstype		device
 
-/system		ext4		/dev/block/platform/dw_mmc.0/by-name/system
-/cache		ext4		/dev/block/platform/dw_mmc.0/by-name/cache
-/data		ext4		/dev/block/platform/dw_mmc.0/by-name/userdata
-/boot		emmc		/dev/block/platform/dw_mmc.0/by-name/boot
-/recovery	emmc		/dev/block/platform/dw_mmc.0/by-name/recovery
-/misc		emmc		/dev/block/platform/dw_mmc.0/by-name/misc
-/bootloader	emmc		/dev/block/mmcblk0boot0
-/sdcard            datamedia   /dev/null
+/boot		emmc		/dev/block/nandc
+/bootloader	emmc		/dev/block/nanda
+/cache		ext4		/dev/block/nandh
+/data		ext4		/dev/block/nande
+/emmc		vfat		/dev/block/nandk
+/recovery	emmc		/dev/block/nandg
+/sdcard		vfat		/dev/block/mmcblk0p1	/dev/block/mmcblk0
+/sd-ext		auto		/dev/block/mmcblk0p2
+/system		ext4		/dev/block/nandd
